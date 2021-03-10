@@ -1,10 +1,19 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { AuthMiddleware } from './common/middlewares/auth.middleware'
+import { TodoController } from './todo/todo.controller'
+import { TodoModule } from './todo/todo.module'
+import { UserModule } from './user/user.module'
 
 @Module({
-  imports: [],
+  imports: [UserModule, TodoModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes(TodoController)
+  }
+}
