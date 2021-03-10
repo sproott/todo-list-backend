@@ -2,9 +2,10 @@
   "name": "todo-list-nestjs",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "repository": "https://github.com/sproott/todo-list-backend",
+  "author": "sproott",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
