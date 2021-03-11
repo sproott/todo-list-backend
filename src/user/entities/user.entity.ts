@@ -9,7 +9,6 @@ export class User extends Model {
 
   id: string
   username: string
-  email: string
   password: string
   todos: Todo[]
 
