@@ -30,7 +30,7 @@ export class UserController {
   @Post('login')
   async login(@Body() loginUserDto: LoginUserDto, @Res({ passthrough: true }) res: Response) {
     const userId = await this.userService.login(loginUserDto)
-    if (!userId) throw new Error('Login unsuccesful')
+    if (!userId) return false
     this.setTokenCookie(userId, res)
     return true
   }
