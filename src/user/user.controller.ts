@@ -6,20 +6,20 @@ import { Request, Response } from 'express'
 import { CryptService } from 'src/common/lib/crypt.service'
 import { User } from './entities/user.entity'
 import { failure, SimpleResponse, success } from 'src/common/util/response/simpleResponse'
-import { ConfigService } from '@nestjs/config'
+import { LibService } from 'src/common/lib/lib.service'
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly cryptService: CryptService,
-    private configService: ConfigService
+    private readonly libService: LibService,
   ) {}
 
   private setTokenCookie(userId: string, res: Response) {
     res.cookie('token', `Bearer ${this.cryptService.generateJwt(userId)}`, {
       httpOnly: true,
-      secure: this.configService.get('env') === 'production',
+      secure: this.libService.isProduction(),
     })
   }
 
